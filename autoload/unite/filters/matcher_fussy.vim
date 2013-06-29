@@ -63,6 +63,12 @@ function! s:matcher.filter(candidates, context)
       continue
     endif
 
+    " to fuzzy match tail path
+    let tmp = split(input, '/')
+    if len(tmp) > 2
+      let input = join(tmp[:-2], '/') . '/*'  . tmp[-1]
+    endif
+
     let input = substitute(substitute(unite#util#escape_match(input),
           \ '[[:alnum:]._-]', '\0.*', 'g'), '\*\*', '*', 'g')
 
@@ -73,7 +79,6 @@ function! s:matcher.filter(candidates, context)
       let expr = 'if_lua_fuzzy'
       let a:context.input = input_orig
     endif
-
 
     let candidates = unite#filters#filter_matcher(
           \ a:candidates, expr, a:context)
