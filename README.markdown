@@ -1,9 +1,11 @@
-unite-matcher-file-name
+unite-matcher
 =======================
 
-file name matcher for unite.vim
-
-license
--------
+## license
 
 MIT license
+
+## matchers
+
+  - matcher_file_name : file name matcher
+  - matcher_fussy     : fussy matcher
