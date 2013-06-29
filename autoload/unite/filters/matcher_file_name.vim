@@ -20,11 +20,11 @@ function! s:matcher.filter(candidates, context)
   for input in split(a:context.input, '\\\@<! ')
     let input = substitute(input, '\\ ', ' ', 'g')
 
-    let input = substitute(substitute(unite#escape_match(input),
+    let input = substitute(substitute(unite#util#escape_match(input),
           \ '[[:alnum:]._-]', '\0.*', 'g'), '\*\*', '*', 'g')
 
     let expr = 'fnamemodify(v:val.word, ":t") =~' . string(input)
-    let candidates = filter(copy(candidates), expr)
+    let candidates = unite#filters#filter_matcher(candidates, expr, a:context)
   endfor
 
   return candidates
